@@ -1,21 +1,12 @@
 
-
 //variables selección de objetos  
 var target = $('#animate1');
 var target2 = $('#animate2');
  
 //obtener el alto de cada objeto
 var objetHeight = function height(objet){  
-    if (objet === target ){
         return  objet.outerHeight();   
     }  
-    if (objet === target2 ){
-         return  objet.outerHeight();  
-    }
- }
-
- objetHeight(target);
- objetHeight(target2);
 
 
 // función .scroll
@@ -30,32 +21,29 @@ $(document).scroll(function(){
     return (height - window.scrollY) / height;
   }
 
-  totalHeight(objetA);
-  totalHeight(objetB);
-
- 
   //Animaciónes
-  var opacityPercent = function equationOpacity(less,multi){
-     return (less - totalHeight(objetA)) * multi;
-  }
-   
-  var topPercent = function equationTop (multi){
-     return totalHeight(objetA) * multi ; 
+  var opacityPercent = function equationOpacity(less,kindObjet,multi){
+     return (less - kindObjet) * multi;
+
+  } 
+  var topPercent = function equationTop (multi,kindObjet){
+     return kindObjet * multi ; 
   }
    
     // Añadiendo efectos a animación
     if(totalHeight(objetA) >= 0){
         target.css({ 
-           "opacity": opacityPercent(1,1), 
-            "bottom" : topPercent(-20)  + "vh", 
+           "opacity": opacityPercent(1,totalHeight(objetA),1), 
+            "bottom" : topPercent(totalHeight(objetA),-20)  + "vh", 
             "display" : "inherit"}
             );
     }
      if(totalHeight(objetB) >= 0){
         target2.css({ 
-           "opacity": opacityPercent(1,1), 
-            "bottom" : topPercent(-20)  + "vh", 
+           "opacity": opacityPercent(1,totalHeight(objetB),1), 
+            "bottom" : topPercent(totalHeight(objetB),-50)  + "vh", 
             "display" : "inherit"}
+
             );
     }
 });
